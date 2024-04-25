@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtw4w32kduoc6"]
+
+[ext_resource type="Texture2D" uid="uid://c25lo36eak20t" path="res://art/Bullet.png" id="1_mqcvx"]
+[ext_resource type="Script" path="res://bullet.cs" id="1_w1vt1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xqxad"]
+radius = 6.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m8ofo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_mqcvx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_w1vt1")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xqxad")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_m8ofo")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

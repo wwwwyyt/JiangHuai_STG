@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cw03me14r14tt"]
+
+[ext_resource type="Script" path="res://main.cs" id="1_kj7j0"]
+[ext_resource type="PackedScene" uid="uid://brmbygl3vsatv" path="res://player.tscn" id="1_rwd2v"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_kj7j0")
+
+[node name="Player" parent="." instance=ExtResource("1_rwd2v")]
+position = Vector2(235, 511)
+Speed = 400
+
+[connection signal="Shoot" from="Player" to="." method="OnPlayerShoot"]
