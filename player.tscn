@@ -37,3 +37,8 @@ sprite_frames = SubResource("SpriteFrames_sw7o1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_u5gnt")
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="ShootTimer" to="." method="OnShootTimerTimeout"]

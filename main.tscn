@@ -8,6 +8,5 @@ script = ExtResource("1_kj7j0")
 
 [node name="Player" parent="." instance=ExtResource("1_rwd2v")]
 position = Vector2(235, 511)
-Speed = 400
 
 [connection signal="Shoot" from="Player" to="." method="OnPlayerShoot"]
