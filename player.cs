@@ -65,16 +65,13 @@ public partial class player : Area2D
     //处理攻击信号/////////////////////////////////////////////////////////////////////////////
         if (Input.IsActionPressed("attack") && shootTimerTimeout == true)
         {
-            Vector2 position = Position;
-            float rotation = Rotation;
-            int positionOffsetY, positionOffsetX, rotationOffset;
+
             int attackmode = (int)AttackMode.NORMAL;
             
             switch (attackmode)
             {
                 case (int)AttackMode.NORMAL:
-                    positionOffsetY = -25;
-                    position.Y += positionOffsetY;
+
                     break;
                 case (int)AttackMode.SPREAD:
                     break;

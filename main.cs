@@ -4,9 +4,17 @@ using System;
 public partial class main : Node2D
 {
     //处理玩家发出的Shoot信号的接收
-    private void OnPlayerShoot(PackedScene bullet, float direction, Vector2 location)
+    private void _spawnBullet(PackedScene bullet, float direction, Vector2 location, Vector2 velocity)
     {
         var spawnedBullet = bullet.Instantiate<bullet>();
+        AddChild(spawnedBullet);
+        spawnedBullet.Rotation = direction; 
+        spawnedBullet.Position = location;
+        spawnedBullet.Velocity = velocity;       
+    }
+    private void OnPlayerShoot(PackedScene bullet, float direction, Vector2 location)
+    {
+    //    var spawnedBullet = bullet.Instantiate<bullet>();
         
         //处理子弹速度
         int bulletSpeed = 800;
@@ -15,14 +23,16 @@ public partial class main : Node2D
         //处理子弹偏移
         Vector2 position = Position;
         float rotation = Rotation;
-        int positionOffsetY, positionOffsetX, rotationOffset;
+        int positionOffsetY/*, positionOffsetX, rotationOffset*/;
 
         positionOffsetY = -25;
         position.Y += positionOffsetY;
 
-        AddChild(spawnedBullet);
-        spawnedBullet.Rotation = direction; 
-        spawnedBullet.Position = location;
-        spawnedBullet.Velocity = velocity;
+
+//        AddChild(spawnedBullet);
+//        spawnedBullet.Rotation = direction; 
+//        spawnedBullet.Position = location;
+//        spawnedBullet.Velocity = velocity;
+        _spawnBullet(bullet, direction, location, velocity);
     }
 }
