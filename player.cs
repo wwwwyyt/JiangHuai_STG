@@ -68,7 +68,6 @@ public partial class player : Area2D
             Vector2 position = Position;
             float rotation = Rotation;
             int positionOffsetY, positionOffsetX, rotationOffset;
-            int bulletSpeed = 800;
             int attackmode = (int)AttackMode.NORMAL;
             
             switch (attackmode)
@@ -80,7 +79,7 @@ public partial class player : Area2D
                 case (int)AttackMode.SPREAD:
                     break;
             }
-            EmitSignal(SignalName.Shoot, _bullet, rotation, position, bulletSpeed);///////////////////////////////////////////////////
+            EmitSignal(SignalName.Shoot, _bullet, rotation, position);///////////////////////////////////////////////////
             shootTimerTimeout = false;
         }
     }
