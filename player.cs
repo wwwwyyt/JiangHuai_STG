@@ -20,6 +20,13 @@ public partial class player : Area2D
 
         //设置控制子弹频率的计时器
         GetNode<Timer>("ShootTimer").Start();
+
+        //设置玩家起始位置
+        Vector2 initPosition; initPosition.X = 250; initPosition.Y = 540;
+        Position = initPosition;
+
+        //设置玩家起始朝向
+        Rotation = 0.0f;
     }
     
     public void GetInput()//处理输入的函数
@@ -61,7 +68,7 @@ public partial class player : Area2D
     //处理攻击信号/////////////////////////////////////////////////////////////////////////////
         if (Input.IsActionPressed("attack") && shootTimerTimeout == true)
         {
-            EmitSignal(SignalName.Shoot, _bullet, Rotation, Position);///////////////////////////////////////////////////
+            EmitSignal(SignalName.Shoot, _bullet, Rotation, Position);//发送玩家角色朝向和位置信息
             shootTimerTimeout = false;
         }
     }

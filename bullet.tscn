@@ -19,7 +19,6 @@ animations = [{
 
 [node name="Bullet" type="Area2D"]
 script = ExtResource("1_w1vt1")
-Speed = 100
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -30,3 +29,5 @@ scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_m8ofo")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnVisibleOnScreenNotifier2dScreenExited"]
