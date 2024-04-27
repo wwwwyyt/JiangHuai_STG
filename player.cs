@@ -10,9 +10,7 @@ public partial class player : Area2D
     //移动速率（可以在Godot检查器界面修改）
     [Export]
     public int Speed { get; set; }
-
-    //攻击模式（普通，散射，激光，跟踪，弹幕，集中，锁定，强化，炸药包）
-    public enum AttackMode { NORMAL, SPREAD, LASER, HOMING, BARRAGE, FOCUSED, LOCKDOWN, POWERUP, SATCHEL };
+    //屏幕大小
     public Vector2 ScreenSize;
     //初始化////////////////////////////////////////////////////////////////////////////////
     public override void _Ready()
@@ -22,8 +20,6 @@ public partial class player : Area2D
 
         //设置控制子弹频率的计时器
         GetNode<Timer>("ShootTimer").Start();
-
-        //设置攻击模式
     }
     
     public void GetInput()//处理输入的函数
@@ -65,17 +61,6 @@ public partial class player : Area2D
     //处理攻击信号/////////////////////////////////////////////////////////////////////////////
         if (Input.IsActionPressed("attack") && shootTimerTimeout == true)
         {
-
-            int attackmode = (int)AttackMode.NORMAL;
-            
-            switch (attackmode)
-            {
-                case (int)AttackMode.NORMAL:
-
-                    break;
-                case (int)AttackMode.SPREAD:
-                    break;
-            }
             EmitSignal(SignalName.Shoot, _bullet, Rotation, Position);///////////////////////////////////////////////////
             shootTimerTimeout = false;
         }
