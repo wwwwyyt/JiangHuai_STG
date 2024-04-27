@@ -79,7 +79,7 @@ public partial class player : Area2D
                 case (int)AttackMode.SPREAD:
                     break;
             }
-            EmitSignal(SignalName.Shoot, _bullet, rotation, position);///////////////////////////////////////////////////
+            EmitSignal(SignalName.Shoot, _bullet, Rotation, Position);///////////////////////////////////////////////////
             shootTimerTimeout = false;
         }
     }
