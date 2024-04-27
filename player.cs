@@ -4,31 +4,40 @@ using System.Diagnostics;
 
 public partial class player : Area2D
 {
+    //初始化////////////////////////////////////////////////////////////////////////////////
     //移动速度（初始值为零向量）
     private Vector2 Velocity = Vector2.Zero;
-    
     //移动速率（可以在Godot检查器界面修改）
     [Export]
     public int Speed { get; set; }
+    //攻击模式（普通，散射，激光，跟踪，弹幕，集中，锁定，强化，炸药包）
+    private enum AttackModeList { NORMAL, SPREAD, LASER, HOMING, BARRAGE, FOCUSED, LOCKDOWN, POWERUP, SATCHEL };
+    [Export]
+    public int AttackMode { get; set; }
     //屏幕大小
     public Vector2 ScreenSize;
-    //初始化////////////////////////////////////////////////////////////////////////////////
     public override void _Ready()
     {
         //获取屏幕大小
         ScreenSize = GetViewportRect().Size;
-
-        //设置控制子弹频率的计时器
-        GetNode<Timer>("ShootTimer").Start();
-
+        Start();
+    }
+    //处理开始新游戏（玩家的初始状态）
+    public void Start()
+    {
         //设置玩家起始位置
-        Vector2 initPosition; initPosition.X = 250; initPosition.Y = 540;
+        Vector2 initPosition; initPosition.X = 420; initPosition.Y = 540;
         Position = initPosition;
 
         //设置玩家起始朝向
         Rotation = 0.0f;
+
+        //设置控制子弹频率的计时器
+        GetNode<Timer>("ShootTimer").Start();
+
+        //设置攻击模式...等等，攻击模式交给main处理了？！我觉得还是让player控制比较好
+        AttackMode = (int)AttackModeList.NORMAL;
     }
-    
     public void GetInput()//处理输入的函数
     {
         Vector2 inputDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
@@ -68,14 +77,14 @@ public partial class player : Area2D
     //处理攻击信号/////////////////////////////////////////////////////////////////////////////
         if (Input.IsActionPressed("attack") && shootTimerTimeout == true)
         {
-            EmitSignal(SignalName.Shoot, _bullet, Rotation, Position);//发送玩家角色朝向和位置信息
+            EmitSignal(SignalName.Shoot, _bullet, Rotation, Position, AttackMode);//发送玩家角色朝向和位置信息
             shootTimerTimeout = false;
         }
     }
     
     //处理射击信号的发射//////////////////////////////////////////////////////////////////////////
     [Signal]
-    public delegate void ShootEventHandler(PackedScene bullet, float direction, Vector2 location);//自定义信号：shoot()
+    public delegate void ShootEventHandler(PackedScene bullet, float direction, Vector2 location, int attackmode);//自定义信号：shoot()
     private PackedScene _bullet = GD.Load<PackedScene>("res://bullet.tscn");
 
     /*
@@ -103,4 +112,7 @@ public partial class player : Area2D
     {
 
     }
+
+    //处理角色死亡
+    //public void 
 }

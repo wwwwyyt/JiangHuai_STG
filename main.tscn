@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cw03me14r14tt"]
+[gd_scene load_steps=4 format=3 uid="uid://cw03me14r14tt"]
 
 [ext_resource type="Script" path="res://main.cs" id="1_kj7j0"]
 [ext_resource type="PackedScene" uid="uid://brmbygl3vsatv" path="res://player.tscn" id="1_rwd2v"]
+[ext_resource type="PackedScene" uid="uid://g0fjf10fg8u1" path="res://hud.tscn" id="3_r3bk8"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_kj7j0")
@@ -9,4 +10,7 @@ script = ExtResource("1_kj7j0")
 [node name="Player" parent="." instance=ExtResource("1_rwd2v")]
 position = Vector2(235, 542)
 
+[node name="HUD" parent="." instance=ExtResource("3_r3bk8")]
+
 [connection signal="Shoot" from="Player" to="." method="OnPlayerShoot"]
+[connection signal="StartGame" from="HUD" to="." method="OnHUDStartGame"]
