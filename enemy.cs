@@ -33,7 +33,7 @@ public partial class enemy : Area2D
     // }
 
     //处理敌机被子弹击中的情况
-    private void OnAreaEntered(Area2D area)
+    private void OnPalyer_BulletAreaEntered(Area2D area)
     {
         // GD.Print("OnPalyer_BulletAreaEntered");
         Hide();
