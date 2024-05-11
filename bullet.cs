@@ -13,7 +13,7 @@ public partial class bullet : Area2D
     public Vector2 Velocity { get; set; } = Vector2.Up;
 
     //处理子弹的运动（匀速子弹）
-    //这里的Position, Velocity都可以在外部修改
+    //速度和方向在一开始就设定好了
     public override void _PhysicsProcess(double delta)
     {
         Position += Velocity * (float)delta;
@@ -23,5 +23,12 @@ public partial class bullet : Area2D
     private void OnVisibleOnScreenNotifier2dScreenExited()
     {
         QueueFree();
+    }
+
+    //处理子弹击中敌人
+    private void OnEnemyAreaEntered(Area2D area)
+    {
+        GD.Print("OnEnemyAreaEntered");
+        QueueFree();//销毁自身
     }
 }

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dl0v0pagxs0kv"]
+
+[ext_resource type="PackedScene" uid="uid://dtw4w32kduoc6" path="res://bullet.tscn" id="1_5ju25"]
+
+[node name="Bullet" instance=ExtResource("1_5ju25")]
+collision_layer = 8
+collision_mask = 4
+
+[connection signal="area_entered" from="." to="." method="OnEnemyAreaEntered"]

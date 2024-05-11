@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds5xwcdmuaif7"]
+
+[ext_resource type="Script" path="res://player_ship.cs" id="1_h0wp0"]
+[ext_resource type="PackedScene" uid="uid://brmbygl3vsatv" path="res://player.tscn" id="2_p7yvy"]
+[ext_resource type="PackedScene" uid="uid://dl0v0pagxs0kv" path="res://player_bullet.tscn" id="3_xfc5g"]
+
+[node name="PlayerShip" type="Node"]
+script = ExtResource("1_h0wp0")
+
+[node name="Player" parent="." instance=ExtResource("2_p7yvy")]
+position = Vector2(402, 586)
+
+[node name="Player_Bullet" parent="." instance=ExtResource("3_xfc5g")]
+
+[connection signal="Hit" from="Player" to="." method="OnPlayerHit"]
+[connection signal="Shoot" from="Player" to="." method="OnPlayerShoot"]

@@ -18,6 +18,7 @@ animations = [{
 }]
 
 [node name="Bullet" type="Area2D"]
+collision_layer = 0
 script = ExtResource("1_w1vt1")
 metadata/_edit_group_ = true
 

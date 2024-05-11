@@ -2,19 +2,28 @@ using Godot;
 using System;
 using System.Diagnostics;
 
+/*
+* 用于记录玩家角色状态
+* 处理角色的键位和移动动画
+* 
+* 无法单独作为场景测试，需要使用player_ship场景测试
+*/
 public partial class player : Area2D
 {
     //初始化////////////////////////////////////////////////////////////////////////////////
     //移动速度（初始值为零向量）
     private Vector2 Velocity = Vector2.Zero;
+    
     //移动速率（可以在Godot检查器界面修改）
     [Export]
     public int Speed { get; set; }
+    
     //攻击模式（普通，散射，激光，跟踪，弹幕，集中，锁定，强化，炸药包）
     private enum AttackModeList { NORMAL, SPREAD, LASER, HOMING, BARRAGE, FOCUSED, LOCKDOWN, POWERUP, SATCHEL };
     [Export]
     public int AttackMode { get; set; }
-    //屏幕大小
+    
+    //屏幕大小（限制活动范围）
     public Vector2 ScreenSize;
     public override void _Ready()
     {
@@ -22,6 +31,7 @@ public partial class player : Area2D
         ScreenSize = GetViewportRect().Size;
         Start();
     }
+
     //处理开始新游戏（玩家的初始状态）
     public void Start()
     {
@@ -35,10 +45,17 @@ public partial class player : Area2D
         //设置控制子弹频率的计时器
         GetNode<Timer>("ShootTimer").Start();
 
-        //设置攻击模式...等等，攻击模式交给main处理了？！我觉得还是让player控制比较好
+        //设置攻击模式
         AttackMode = (int)AttackModeList.NORMAL;
+
+        //设置碰撞检测开启
+        GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
+
+        //显示玩家
+        Show();
     }
-    public void GetInput()//处理输入的函数
+
+    public void GetInput()//处理键盘输入的函数
     {
         Vector2 inputDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
         Velocity = inputDirection * Speed;
@@ -85,7 +102,7 @@ public partial class player : Area2D
     //处理射击信号的发射//////////////////////////////////////////////////////////////////////////
     [Signal]
     public delegate void ShootEventHandler(PackedScene bullet, float direction, Vector2 location, int attackmode);//自定义信号：shoot()
-    private PackedScene _bullet = GD.Load<PackedScene>("res://bullet.tscn");
+    private PackedScene _bullet = GD.Load<PackedScene>("res://player_bullet.tscn");
 
     /*
     public override void _Input(InputEvent @event)
@@ -108,11 +125,20 @@ public partial class player : Area2D
     {
         shootTimerTimeout = true;
     }
-    public override void _Process(double delta)
-    {
 
+    //处理角色受到攻击
+    [Signal]
+    public delegate void HitEventHandler();
+
+    private void OnAreaEntered(Area2D area)
+    {
+        GD.Print("OnAreaEntered");
+        Hide();
+        EmitSignal(SignalName.Hit);
+        //使用SetDeferred安全地禁用玩家的碰撞检测
+        GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
     }
 
     //处理角色死亡
-    //public void 
+    //public void
 }
