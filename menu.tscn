@@ -1,19 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://o31vfs8r32jo"]
+[gd_scene load_steps=6 format=3 uid="uid://o31vfs8r32jo"]
 
 [ext_resource type="Script" path="res://Menu.cs" id="1_meutb"]
 [ext_resource type="Texture2D" uid="uid://cvn7kwq7060ep" path="res://art/Title.png" id="2_v65hh"]
 [ext_resource type="FontFile" uid="uid://dwbthy7i40pf8" path="res://fonts/MaokenHeavyLabourerSC-Ming-Regular.ttf" id="3_0yk5t"]
+[ext_resource type="Script" path="res://Menu_StartButton.cs" id="4_tu107"]
+[ext_resource type="Script" path="res://Menu_Title.cs" id="5_7uusp"]
 
 [node name="Menu" type="Node2D"]
 script = ExtResource("1_meutb")
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="TitleTexture" type="TextureRect" parent="."]
 offset_right = 840.0
 offset_bottom = 630.0
 texture = ExtResource("2_v65hh")
 
-[node name="Button" type="Button" parent="."]
+[node name="StartButton" type="Button" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -29,6 +32,7 @@ size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("3_0yk5t")
 theme_override_font_sizes/font_size = 48
 text = "开   始"
+script = ExtResource("4_tu107")
 metadata/_edit_lock_ = true
 
 [node name="Title" type="Label" parent="."]
@@ -39,5 +43,17 @@ offset_bottom = 197.0
 theme_override_fonts/font = ExtResource("3_0yk5t")
 theme_override_font_sizes/font_size = 64
 text = "江淮Project - STG"
+script = ExtResource("5_7uusp")
 metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
+
+[node name="Black" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 840.0
+offset_bottom = 630.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[connection signal="pressed" from="StartButton" to="." method="OnStartButtonPressed"]

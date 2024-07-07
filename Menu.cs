@@ -8,4 +8,9 @@ using System;
 */
 public partial class Menu : Node2D
 {
+
+    public void OnStartButtonPressed()
+    {
+        GetTree().ChangeSceneToFile("res://stage_1.tscn");
+    }
 }

@@ -9,6 +9,17 @@ position = Vector2(-1, 0)
 script = ExtResource("1_aa3tf")
 metadata/_edit_group_ = true
 
+[node name="BackgroundColor" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 840.0
+offset_bottom = 630.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(7.21961e-07, 0.241612, 0.440893, 1)
+metadata/_edit_lock_ = true
+
 [node name="Enemy" parent="." instance=ExtResource("2_8obwk")]
 position = Vector2(410, -132)
 
